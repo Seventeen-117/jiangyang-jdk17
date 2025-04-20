@@ -1,12 +1,17 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.file;
 
-import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
 import com.jiangyang.cloud.module.infra.framework.file.core.client.db.DBFileClient;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 文件内容表
@@ -18,12 +23,12 @@ import lombok.*;
 @TableName("infra_file_content")
 @KeySequence("infra_file_content_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileContentDO extends BaseDO {
+public class FileContentDO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 编号，数据库自增
@@ -44,5 +49,43 @@ public class FileContentDO extends BaseDO {
      * 文件内容
      */
     private byte[] content;
+    
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+    
+    /**
+     * 创建者，目前使用 SysUser 的 id 编号
+     */
+    private String creator;
+    
+    /**
+     * 更新者，目前使用 SysUser 的 id 编号
+     */
+    private String updater;
+    
+    /**
+     * 是否删除
+     */
+    private Boolean deleted;
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FileContentDO that = (FileContentDO) o;
+        return Objects.equals(id, that.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

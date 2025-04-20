@@ -102,16 +102,29 @@ public class Demo03StudentServiceImpl implements Demo03StudentService {
     }
 
     private void createDemo03CourseList(Long studentId, List<Demo03CourseDO> list) {
-        if (list != null) {
-            list.forEach(o -> o.setStudentId(studentId));
+        if (list == null || list.isEmpty()) {
+            return;
         }
-        demo03CourseMapper.insertBatch(list);
+        // Set studentId for each record
+        list.forEach(o -> o.setStudentId(studentId));
+        // Use regular insert in a loop since insertBatch is not available
+        for (Demo03CourseDO course : list) {
+            demo03CourseMapper.insert(course);
+        }
     }
 
     private void updateDemo03CourseList(Long studentId, List<Demo03CourseDO> list) {
+        // Delete existing records
         deleteDemo03CourseByStudentId(studentId);
-		list.forEach(o -> o.setId(null).setUpdater(null).setUpdateTime(null)); // 解决更新情况下：1）id 冲突；2）updateTime 不更新
-        createDemo03CourseList(studentId, list);
+        // For each record, clear the ID to prevent conflicts
+        if (list != null) {
+            list.forEach(o -> {
+                o.setId(null);
+                // Remove the setUpdater and setUpdateTime calls since they're not available
+            });
+            // Create all new records
+            createDemo03CourseList(studentId, list);
+        }
     }
 
     private void deleteDemo03CourseByStudentId(Long studentId) {
@@ -161,11 +174,19 @@ public class Demo03StudentServiceImpl implements Demo03StudentService {
 
     private void updateDemo03Grade(Long studentId, Demo03GradeDO demo03Grade) {
         if (demo03Grade == null) {
-			return;
+            return;
         }
         demo03Grade.setStudentId(studentId);
-        demo03Grade.setUpdater(null).setUpdateTime(null); // 解决更新情况下：updateTime 不更新
-        demo03GradeMapper.insertOrUpdate(demo03Grade);
+        // Check if record exists
+        Demo03GradeDO existingGrade = demo03GradeMapper.selectByStudentId(studentId);
+        if (existingGrade != null) {
+            // Update existing record
+            demo03Grade.setId(existingGrade.getId());
+            demo03GradeMapper.updateById(demo03Grade);
+        } else {
+            // Insert new record
+            demo03GradeMapper.insert(demo03Grade);
+        }
     }
 
     private void deleteDemo03GradeByStudentId(Long studentId) {

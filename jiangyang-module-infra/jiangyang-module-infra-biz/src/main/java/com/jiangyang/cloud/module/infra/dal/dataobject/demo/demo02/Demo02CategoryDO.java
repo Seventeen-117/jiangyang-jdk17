@@ -1,10 +1,10 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.demo.demo02;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 /**
  * 示例分类 DO
@@ -36,5 +36,16 @@ public class Demo02CategoryDO extends BaseDO {
      * 父级编号
      */
     private Long parentId;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 }

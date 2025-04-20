@@ -1,8 +1,8 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.file;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.jiangyang.cloud.framework.common.util.json.JsonUtils;
-import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
 import com.jiangyang.cloud.module.infra.framework.file.core.client.FileClientConfig;
 import com.jiangyang.cloud.module.infra.framework.file.core.client.db.DBFileClientConfig;
 import com.jiangyang.cloud.module.infra.framework.file.core.client.ftp.FtpFileClientConfig;
@@ -17,7 +17,10 @@ import com.baomidou.mybatisplus.extension.handlers.AbstractJsonTypeHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.*;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * 文件配置表
@@ -27,12 +30,12 @@ import java.lang.reflect.Field;
 @TableName(value = "infra_file_config", autoResultMap = true)
 @KeySequence("infra_file_config_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileConfigDO extends BaseDO {
+public class FileConfigDO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 配置编号，数据库自增
@@ -60,10 +63,49 @@ public class FileConfigDO extends BaseDO {
     private Boolean master;
 
     /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+    
+    /**
+     * 创建者，目前使用 SysUser 的 id 编号
+     */
+    private String creator;
+    
+    /**
+     * 更新者，目前使用 SysUser 的 id 编号
+     */
+    private String updater;
+    
+    /**
+     * 是否删除
+     */
+    private Boolean deleted;
+
+    /**
      * 支付渠道配置
      */
     @TableField(typeHandler = FileClientConfigTypeHandler.class)
     private FileClientConfig config;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FileConfigDO that = (FileConfigDO) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public static class FileClientConfigTypeHandler extends AbstractJsonTypeHandler<Object> {
 
@@ -105,7 +147,5 @@ public class FileConfigDO extends BaseDO {
         public String toJson(Object obj) {
             return JsonUtils.toJsonString(obj);
         }
-
     }
-
 }

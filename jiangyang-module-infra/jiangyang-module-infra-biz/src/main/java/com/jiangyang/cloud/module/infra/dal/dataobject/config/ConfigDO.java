@@ -1,13 +1,13 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.config;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
 import com.jiangyang.cloud.module.infra.enums.config.ConfigTypeEnum;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.time.LocalDateTime;
 
 /**
  * 参数配置表
@@ -60,5 +60,17 @@ public class ConfigDO extends BaseDO {
      * 备注
      */
     private String remark;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+
 
 }

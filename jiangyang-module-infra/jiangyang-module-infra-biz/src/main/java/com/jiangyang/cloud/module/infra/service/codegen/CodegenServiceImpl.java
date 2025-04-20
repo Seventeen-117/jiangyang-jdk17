@@ -102,7 +102,10 @@ public class CodegenServiceImpl implements CodegenService {
         if (!tableInfo.isHavePrimaryKey()) {
             columns.get(0).setPrimaryKey(true);
         }
-        codegenColumnMapper.insertBatch(columns);
+        // 手动批量插入
+        for (CodegenColumnDO column : columns) {
+            codegenColumnMapper.insert(column);
+        }
         return table.getId();
     }
 
@@ -205,10 +208,17 @@ public class CodegenServiceImpl implements CodegenService {
 
         // 4.1 插入新增的字段
         List<CodegenColumnDO> columns = codegenBuilder.buildColumns(tableId, tableFields);
-        codegenColumnMapper.insertBatch(columns);
+        // 手动批量插入
+        for (CodegenColumnDO column : columns) {
+            codegenColumnMapper.insert(column);
+        }
+        
         // 4.2 删除不存在的字段
         if (CollUtil.isNotEmpty(deleteColumnIds)) {
-            codegenColumnMapper.deleteBatchIds(deleteColumnIds);
+            // 手动批量删除
+            for (Long id : deleteColumnIds) {
+                codegenColumnMapper.deleteById(id);
+            }
         }
     }
 

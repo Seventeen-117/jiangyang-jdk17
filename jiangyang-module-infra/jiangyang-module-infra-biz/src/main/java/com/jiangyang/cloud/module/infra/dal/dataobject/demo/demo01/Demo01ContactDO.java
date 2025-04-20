@@ -1,9 +1,7 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.demo.demo01;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -50,5 +48,16 @@ public class Demo01ContactDO extends BaseDO {
      * 头像
      */
     private String avatar;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 }

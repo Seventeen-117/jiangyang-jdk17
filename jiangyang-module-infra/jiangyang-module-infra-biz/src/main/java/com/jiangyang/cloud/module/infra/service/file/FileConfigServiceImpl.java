@@ -2,6 +2,7 @@ package com.jiangyang.cloud.module.infra.service.file;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.jiangyang.cloud.framework.common.pojo.PageResult;
 import com.jiangyang.cloud.framework.common.util.json.JsonUtils;
 import com.jiangyang.cloud.framework.common.util.validation.ValidationUtils;
@@ -101,7 +102,8 @@ public class FileConfigServiceImpl implements FileConfigService {
         // 校验存在
         validateFileConfigExists(id);
         // 更新其它为非 master
-        fileConfigMapper.updateBatch(new FileConfigDO().setMaster(false));
+        fileConfigMapper.update(new FileConfigDO().setMaster(false), 
+                new LambdaQueryWrapper<FileConfigDO>().eq(FileConfigDO::getMaster, true));
         // 更新
         fileConfigMapper.updateById(new FileConfigDO().setId(id).setMaster(true));
 

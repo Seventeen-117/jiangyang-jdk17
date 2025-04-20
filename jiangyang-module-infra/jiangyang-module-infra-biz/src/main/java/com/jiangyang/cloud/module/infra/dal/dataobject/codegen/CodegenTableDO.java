@@ -1,17 +1,17 @@
 package com.jiangyang.cloud.module.infra.dal.dataobject.codegen;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
 import com.jiangyang.cloud.module.infra.dal.dataobject.db.DataSourceConfigDO;
 import com.jiangyang.cloud.module.infra.enums.codegen.CodegenFrontTypeEnum;
 import com.jiangyang.cloud.module.infra.enums.codegen.CodegenSceneEnum;
 import com.jiangyang.cloud.module.infra.enums.codegen.CodegenTemplateTypeEnum;
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 /**
  * 代码生成 table 表定义
@@ -154,5 +154,17 @@ public class CodegenTableDO extends BaseDO {
      * 关联 {@link CodegenColumnDO#getId()}
      */
     private Long treeNameColumnId;
+
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 }
