@@ -1,0 +1,2 @@
+com.jiangyang.cloud.framework.tracer.config.JiangYangTracerAutoConfiguration
+com.jiangyang.cloud.framework.tracer.config.JiangYangMetricsAutoConfiguration

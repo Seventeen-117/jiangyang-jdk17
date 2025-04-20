@@ -1,0 +1,3 @@
+com.jiangyang.cloud.framework.datasource.config.JiangYangDataSourceAutoConfiguration
+com.jiangyang.cloud.framework.mybatis.config.JiangYangMybatisAutoConfiguration
+com.jiangyang.cloud.framework.translate.config.JiangYangTranslateAutoConfiguration

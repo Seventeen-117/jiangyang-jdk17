@@ -1,0 +1,3 @@
+com.jiangyang.cloud.framework.mq.redis.config.JiangYangRedisMQProducerAutoConfiguration
+com.jiangyang.cloud.framework.mq.redis.config.JiangYangRedisMQConsumerAutoConfiguration
+com.jiangyang.cloud.framework.mq.rabbitmq.config.JiangYangRabbitMQAutoConfiguration

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: jiangyang-module-iot-plugin-http
+
+jiangyang:
+  iot:
+    plugin:
+      common:
+        upstream-url: http://127.0.0.1:48080
+        downstream-port: 8093
+        plugin-key: jiangyang-module-iot-plugin-http
+      http:
+        server-port: 8092

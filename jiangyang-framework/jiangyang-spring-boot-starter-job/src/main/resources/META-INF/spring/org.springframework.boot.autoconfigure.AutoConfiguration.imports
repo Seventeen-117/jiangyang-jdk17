@@ -1,0 +1,2 @@
+com.jiangyang.cloud.framework.quartz.config.JiangYangXxlJobAutoConfiguration
+com.jiangyang.cloud.framework.quartz.config.JiangYangAsyncAutoConfiguration
