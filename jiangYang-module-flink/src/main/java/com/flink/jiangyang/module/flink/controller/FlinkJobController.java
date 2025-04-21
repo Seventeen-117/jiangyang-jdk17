@@ -2,7 +2,7 @@ package com.flink.jiangyang.module.flink.controller;
 
 
 
-import com.jiangYang.cloud.framework.common.pojo.CommonResult;
+import com.jiangyang.cloud.framework.common.pojo.CommonResult;
 import com.flink.jiangyang.module.flink.vo.FlinkJobSubmitReqVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobInfoRespVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobStatusRespVO;
@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
-import static com.jiangYang.cloud.framework.common.pojo.CommonResult.success;
+import static com.jiangyang.cloud.framework.common.pojo.CommonResult.success;
 
 @Tag(name = "管理后台 - Flink 任务管理")
 @RestController

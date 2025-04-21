@@ -3,16 +3,15 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.jiangyang.cloud</groupId>
+		<artifactId>jiangyang</artifactId>
+		<version>${revision}</version>
 	</parent>
-	<groupId>com.flink</groupId>
-	<artifactId>jiangYang-module-flink</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>jiangYang-module-flink</name>
-	<description>JiangYang-module-flink project for Spring Boot</description>
+	<groupId>com.jiangyang.cloud</groupId>
+	<artifactId>jiangyang-module-flink</artifactId>
+	<version>${revision}</version>
+	<name>jiangyang-module-flink</name>
+	<description>JiangYang module flink project</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -392,10 +391,9 @@
 			<version>${swagger-annotations.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.jiangYang.cloud</groupId>
-			<artifactId>jiangYang-common</artifactId>
-			<version>2.4.1-jdk8-SNAPSHOT</version>
-			<scope>compile</scope>
+			<groupId>com.jiangyang.cloud</groupId>
+			<artifactId>jiangyang-common</artifactId>
+			<version>${revision}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>

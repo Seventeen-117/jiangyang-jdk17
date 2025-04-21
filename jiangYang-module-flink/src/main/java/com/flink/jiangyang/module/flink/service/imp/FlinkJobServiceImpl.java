@@ -1,6 +1,6 @@
 package com.flink.jiangyang.module.flink.service.imp;
 
-import com.jiangYang.cloud.framework.common.exception.ServiceException;
+
 import com.flink.jiangyang.module.flink.config.FlinkProperties;
 import com.flink.jiangyang.module.flink.vo.FlinkJobSubmitReqVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobInfoRespVO;

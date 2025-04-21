@@ -7,7 +7,7 @@ import com.flink.jiangyang.module.flink.pojo.FlinkJobLoadDO;
 import com.flink.jiangyang.module.flink.service.StarRocksCompletionService;
 import com.flink.jiangyang.module.flink.vo.FlinkJobLoadInfoRespVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobLoadStatusRespVO;
-import com.jiangYang.cloud.framework.common.pojo.CommonResult;
+import com.jiangyang.cloud.framework.common.pojo.CommonResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.jiangYang.cloud.framework.common.pojo.CommonResult.success;
+import static com.jiangyang.cloud.framework.common.pojo.CommonResult.success;
 
 @Tag(name = "管理后台 - Flink StarRocks 数据加载")
 @RestController
