@@ -83,14 +83,15 @@ public interface AdminUserApi extends AutoTransable<AdminUserRespDTO> {
 
     @Override
     @FeignIgnore
+    @GetMapping(PREFIX + "/select-by-ids")
     default List<AdminUserRespDTO> selectByIds(List<?> ids) {
         return getUserList(Convert.toList(Long.class, ids)).getCheckedData();
     }
 
     @Override
     @FeignIgnore
+    @GetMapping(PREFIX + "/select-by-id")
     default AdminUserRespDTO selectById(Object id) {
         return getUser(Convert.toLong(id)).getCheckedData();
     }
-
 }

@@ -5,7 +5,7 @@
 <mapper namespace="com.jiangyang.cloud.module.iot.dal.mysql.device.IotDeviceMapper">
 
     <select id="selectDeviceCountGroupByState" resultType="java.util.Map">
-        SELECT 
+        SELECT
             state AS `key`,
             COUNT(1) AS `value`
         FROM iot_device

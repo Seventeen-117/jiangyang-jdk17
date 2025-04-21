@@ -5,13 +5,13 @@
 <mapper namespace="com.jiangyang.cloud.module.iot.dal.tdengine.IotDevicePropertyMapper">
 
     <select id="getProductPropertySTableFieldList" resultType="com.jiangyang.cloud.module.iot.framework.tdengine.core.TDengineTableField">
-        DESCRIBE product_property_${productKey}
+        DESCRIBE device_property_${productKey}
     </select>
 
     <update id="createProductPropertySTable">
         CREATE STABLE product_property_${productKey} (
-            ts TIMESTAMP,
-            report_time TIMESTAMP,
+        ts TIMESTAMP,
+        report_time TIMESTAMP,
         <foreach item="field" collection="fields" separator=",">
             ${field.field} ${field.type}
             <if test="field.length != null and field.length > 0">
@@ -20,7 +20,7 @@
         </foreach>
         )
         TAGS (
-            device_key NCHAR(50)
+        device_key NCHAR(50)
         )
     </update>
 
@@ -71,7 +71,7 @@
         FROM device_property_${reqVO.deviceKey}
         WHERE ${@cn.hutool.core.util.StrUtil@toUnderlineCase(reqVO.identifier)} IS NOT NULL
           AND ts BETWEEN ${@cn.hutool.core.date.LocalDateTimeUtil@toEpochMilli(reqVO.times[0])}
-              AND ${@cn.hutool.core.date.LocalDateTimeUtil@toEpochMilli(reqVO.times[1])}
+            AND ${@cn.hutool.core.date.LocalDateTimeUtil@toEpochMilli(reqVO.times[1])}
         ORDER BY ts DESC
     </select>
 

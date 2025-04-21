@@ -47,6 +47,12 @@
             <groupId>com.jiangyang.cloud</groupId>
             <artifactId>jiangyang-spring-boot-starter-security</artifactId>
         </dependency>
+        
+        <!-- 解决 AuthorizeRequestsCustomizer 类无法找到的问题 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
 
         <!-- DB 相关 -->
         <dependency>
@@ -100,6 +106,13 @@
         <dependency>
             <groupId>com.jiangyang.cloud</groupId>
             <artifactId>jiangyang-spring-boot-starter-excel</artifactId>
+        </dependency>
+
+        <!-- Pay Client 相关 -->
+        <dependency>
+            <groupId>com.jiangyang.cloud</groupId>
+            <artifactId>jiangyang-spring-boot-starter-biz-pay</artifactId>
+            <version>${revision}</version>
         </dependency>
 
     </dependencies>

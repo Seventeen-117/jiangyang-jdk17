@@ -4,7 +4,6 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.jiangyang.cloud.framework.common.exception.ServiceException;
 import com.jiangyang.cloud.framework.common.util.servlet.ServletUtils;
-import com.jiangyang.cloud.framework.security.config.SecurityProperties;
 import com.jiangyang.cloud.framework.security.core.LoginUser;
 import com.jiangyang.cloud.framework.security.core.util.SecurityFrameworkUtils;
 import com.jiangyang.cloud.framework.tenant.core.context.TenantContextHolder;
@@ -36,11 +35,14 @@ public class JmReportTokenServiceImpl implements JmReportTokenServiceI {
      * auth 相关格式
      */
     private static final String AUTHORIZATION_FORMAT = SecurityFrameworkUtils.AUTHORIZATION_BEARER + " %s";
+    
+    /**
+     * 默认 token header
+     */
+    private static final String TOKEN_HEADER = "Authorization";
 
     private final OAuth2TokenApi oauth2TokenApi;
     private final PermissionApi permissionApi;
-
-    private final SecurityProperties securityProperties;
 
     /**
      * 自定义 API 数据集appian自定义 Header，解决 Token 传递。
@@ -56,7 +58,7 @@ public class JmReportTokenServiceImpl implements JmReportTokenServiceI {
 
         // 设置到 jiangyang 系统的 token
         HttpHeaders headers = new HttpHeaders();
-        headers.add(securityProperties.getTokenHeader(), String.format(AUTHORIZATION_FORMAT, token));
+        headers.add(TOKEN_HEADER, String.format(AUTHORIZATION_FORMAT, token));
         return headers;
     }
 

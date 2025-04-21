@@ -1,7 +1,7 @@
 package com.jiangyang.cloud.module.infra.dal.mysql.file;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jiangyang.cloud.framework.mybatis.core.mapper.BaseMapperX;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jiangyang.cloud.framework.common.pojo.PageResult;
 import com.jiangyang.cloud.module.infra.controller.admin.file.vo.config.FileConfigPageReqVO;
@@ -9,7 +9,7 @@ import com.jiangyang.cloud.module.infra.dal.dataobject.file.FileConfigDO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface FileConfigMapper extends BaseMapper<FileConfigDO> {
+public interface FileConfigMapper extends BaseMapperX<FileConfigDO> {
 
     default PageResult<FileConfigDO> selectPage(FileConfigPageReqVO reqVO) {
         // 创建MyBatis Plus的Page对象
@@ -41,7 +41,6 @@ public interface FileConfigMapper extends BaseMapper<FileConfigDO> {
     }
 
     default FileConfigDO selectByMaster() {
-        return selectOne(new LambdaQueryWrapper<FileConfigDO>()
-                .eq(FileConfigDO::getMaster, true));
+        return selectOne(FileConfigDO::getMaster, true);
     }
 }

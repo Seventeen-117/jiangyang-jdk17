@@ -10,11 +10,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = ApiConstants.NAME) // TODO 芋艿：fallbackFactory =
+@FeignClient(name = "${spring.application.name}", path = ApiConstants.PREFIX) // 直接使用配置属性
 @Tag(name = "RPC 服务 - 钱包")
 public interface PayWalletApi {
 
-    String PREFIX = ApiConstants.PREFIX + "/wallet";
+    String PREFIX = "/wallet";
 
     @PostMapping(PREFIX + "/add-balance")
     @Operation(summary = "添加钱包余额")

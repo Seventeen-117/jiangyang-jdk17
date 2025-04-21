@@ -1,10 +1,15 @@
 package com.jiangyang.cloud.module.report.dal.dataobject.goview;
 
-import com.jiangyang.cloud.framework.mybatis.core.dataobject.BaseDO;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * GoView 项目表
@@ -16,11 +21,12 @@ import lombok.*;
 @TableName(value = "report_go_view_project", autoResultMap = true) // 由于 SQL Server 的 system_user 是关键字，所以使用 system_users
 @KeySequence("report_go_view_project_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
-@EqualsAndHashCode(callSuper = true)
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoViewProjectDO extends BaseDO {
+public class GoViewProjectDO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 编号，数据库自增
@@ -54,4 +60,43 @@ public class GoViewProjectDO extends BaseDO {
      * 项目备注
      */
     private String remark;
+    
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    /**
+     * 最后更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+    
+    /**
+     * 创建者，目前使用 SysUser 的 id 编号
+     */
+    private String creator;
+    
+    /**
+     * 更新者，目前使用 SysUser 的 id 编号
+     */
+    private String updater;
+    
+    /**
+     * 是否删除
+     */
+    private Boolean deleted;
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GoViewProjectDO that = (GoViewProjectDO) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

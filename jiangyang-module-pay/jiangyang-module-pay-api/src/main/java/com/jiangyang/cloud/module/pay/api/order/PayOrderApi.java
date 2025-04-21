@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
-@FeignClient(name = ApiConstants.NAME) // TODO 芋艿：fallbackFactory =
+@FeignClient(name = "${spring.application.name}", path = ApiConstants.PREFIX) // 直接使用配置属性
 @Tag(name = "RPC 服务 - 支付单")
 public interface PayOrderApi {
 
-    String PREFIX = ApiConstants.PREFIX + "/order";
+    String PREFIX = "/order";
 
     @PostMapping(PREFIX + "/create")
     @Operation(summary = "创建支付单")

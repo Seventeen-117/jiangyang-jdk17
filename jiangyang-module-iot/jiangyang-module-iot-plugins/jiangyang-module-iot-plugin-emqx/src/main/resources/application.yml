@@ -1,20 +1,12 @@
 spring:
   application:
-    name: jiangyang-module-iot-plugin-emqx
+    name: jiangYang-module-iot-plugin-emqx
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true # 允许循环依赖，因为项目是三层架构，无法避免这个情况。
+  config:
+    import:
+      - optional:classpath:application-${spring.profiles.active}.yaml # 加载【本地】配置
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.yaml # 加载【Nacos】的配置
 
-jiangyang:
-  iot:
-    plugin:
-      common:
-        upstream-url: http://127.0.0.1:48080
-        downstream-port: 8100
-        plugin-key: jiangyang-module-iot-plugin-emqx
-      emqx:
-        mqtt-host: 127.0.0.1
-        mqtt-port: 1883
-        mqtt-ssl: false
-        mqtt-username: jiangyang
-        mqtt-password: 123456
-        mqtt-topics:
-          - "/sys/#"
-        auth-port: 8101

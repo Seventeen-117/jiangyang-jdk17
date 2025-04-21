@@ -74,3 +74,4 @@ public interface IotDeviceLogMapper {
                                                              @Param("endTime") Long endTime);
 
 }
+

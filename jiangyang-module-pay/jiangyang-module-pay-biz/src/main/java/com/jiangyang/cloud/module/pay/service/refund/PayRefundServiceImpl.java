@@ -8,6 +8,7 @@ import com.jiangyang.cloud.framework.pay.core.client.dto.refund.PayRefundRespDTO
 import com.jiangyang.cloud.framework.pay.core.client.dto.refund.PayRefundUnifiedReqDTO;
 import com.jiangyang.cloud.framework.pay.core.enums.refund.PayRefundStatusRespEnum;
 import com.jiangyang.cloud.framework.tenant.core.util.TenantUtils;
+import com.jiangyang.cloud.framework.tenant.core.db.TenantBaseDO;
 import com.jiangyang.cloud.module.pay.api.refund.dto.PayRefundCreateReqDTO;
 import com.jiangyang.cloud.module.pay.controller.admin.refund.vo.PayRefundExportReqVO;
 import com.jiangyang.cloud.module.pay.controller.admin.refund.vo.PayRefundPageReqVO;
@@ -134,7 +135,7 @@ public class PayRefundServiceImpl implements PayRefundService {
                     .setReason(reqDTO.getReason());
             PayRefundRespDTO refundRespDTO = client.unifiedRefund(unifiedReqDTO);
             // 2.3 处理退款返回
-            getSelf().notifyRefund(channel, refundRespDTO);
+            getSelf().processRefundNotify(channel, refundRespDTO);
         } catch (Throwable e) {
             // 注意：这里仅打印异常，不进行抛出。
             // 原因是：虽然调用支付渠道进行退款发生异常（网络请求超时），实际退款成功。这个结果，后续通过退款回调、或者退款轮询补偿可以拿到。
@@ -190,7 +191,7 @@ public class PayRefundServiceImpl implements PayRefundService {
         // 校验支付渠道是否有效
         PayChannelDO channel = channelService.validPayChannel(channelId);
         // 更新退款订单
-        TenantUtils.execute(channel.getTenantId(), () -> getSelf().notifyRefund(channel, notify));
+        TenantUtils.execute(((TenantBaseDO) channel).getTenantId(), () -> getSelf().processRefundNotify(channel, notify));
     }
 
     /**
@@ -199,9 +200,9 @@ public class PayRefundServiceImpl implements PayRefundService {
      * @param channel 支付渠道
      * @param notify  通知
      */
-    // 注意，如果是方法内调用该方法，需要通过 getSelf().notifyRefund(channel, notify) 调用，否则事务不生效
+    // 注意，如果是方法内调用该方法，需要通过 getSelf().processRefundNotify(channel, notify) 调用，否则事务不生效
     @Transactional(rollbackFor = Exception.class)
-    public void notifyRefund(PayChannelDO channel, PayRefundRespDTO notify) {
+    public void processRefundNotify(PayChannelDO channel, PayRefundRespDTO notify) {
         // 情况一：退款成功
         if (PayRefundStatusRespEnum.isSuccess(notify.getStatus())) {
             notifyRefundSuccess(channel, notify);
@@ -326,7 +327,7 @@ public class PayRefundServiceImpl implements PayRefundService {
      * @return 自己
      */
     private PayRefundServiceImpl getSelf() {
-        return SpringUtil.getBean(getClass());
+        return SpringUtil.getBean(PayRefundServiceImpl.class);
     }
 
-}
+} 

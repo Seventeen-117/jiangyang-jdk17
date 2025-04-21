@@ -1,6 +1,5 @@
 package com.jiangyang.cloud.module.report.framework.jmreport.config;
 
-import com.jiangyang.cloud.framework.security.config.SecurityProperties;
 import com.jiangyang.cloud.module.system.api.oauth2.OAuth2TokenApi;
 import com.jiangyang.cloud.module.report.framework.jmreport.core.service.JmReportTokenServiceImpl;
 import com.jiangyang.cloud.module.system.api.permission.PermissionApi;
@@ -21,9 +20,8 @@ public class JmReportConfiguration {
     @Bean
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public JmReportTokenServiceI jmReportTokenService(OAuth2TokenApi oAuth2TokenApi,
-                                                      PermissionApi permissionApi,
-                                                      SecurityProperties securityProperties) {
-        return new JmReportTokenServiceImpl(oAuth2TokenApi, permissionApi, securityProperties);
+                                                      PermissionApi permissionApi) {
+        return new JmReportTokenServiceImpl(oAuth2TokenApi, permissionApi);
     }
 
 }
