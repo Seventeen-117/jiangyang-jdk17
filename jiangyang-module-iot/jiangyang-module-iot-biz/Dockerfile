@@ -5,6 +5,11 @@ FROM eclipse-temurin:21-jre
 ## 创建目录，并使用它作为工作目录
 RUN mkdir -p /jiangyang-module-iot-biz
 WORKDIR /jiangyang-module-iot-biz
+
+## CA certificates fix - create symlink to system certificates
+RUN rm -f "${JAVA_HOME}/lib/security/cacerts" && \
+    ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
+
 ## 将后端项目的 Jar 文件，复制到镜像中
 COPY ./target/jiangyang-module-iot-biz-2.4.2-SNAPSHOT.jar app.jar
 
@@ -15,5 +20,5 @@ ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx512m"
 ## 暴露后端项目的 48091 端口
 EXPOSE 48091
 
-## 启动后端项目
-CMD java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar app.jar
+## 启动后端项目，确保使用正确的命令格式
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
