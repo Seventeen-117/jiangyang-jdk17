@@ -15,3 +15,5 @@ spring:
 logging:
   level:
     org.springframework.context.support.PostProcessorRegistrationDelegate: ERROR
+
+# Flink Job 配置

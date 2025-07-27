@@ -122,6 +122,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>com.jiangyang.cloud.module.mp.MpServerApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

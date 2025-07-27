@@ -7,6 +7,7 @@ import com.flink.jiangyang.module.flink.vo.FlinkJobSubmitReqVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobInfoRespVO;
 import com.flink.jiangyang.module.flink.vo.FlinkJobStatusRespVO;
 import com.flink.jiangyang.module.flink.service.FlinkJobService;
+import com.flink.jiangyang.module.flink.utils.FlinkJobBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,6 +23,9 @@ public class FlinkJobController {
 
     @Resource
     private FlinkJobService flinkJobService;
+    
+    @Resource
+    private FlinkJobBuilder flinkJobBuilder;
 
     @PostMapping("/submit")
     @Operation(summary = "提交 Flink 任务")
@@ -54,5 +58,25 @@ public class FlinkJobController {
     @Operation(summary = "获取所有运行中的 Flink 任务")
     public CommonResult<List<FlinkJobInfoRespVO>> listRunningJobs() throws Exception {
         return success(flinkJobService.listRunningJobs());
+    }
+
+    @PostMapping("/submit-simple-wordcount")
+    @Operation(summary = "提交简单的 WordCount 任务（测试用）")
+    public CommonResult<String> submitSimpleWordCountJob() throws Exception {
+        FlinkJobSubmitReqVO reqVO = flinkJobBuilder.buildSimpleWordCountJob();
+        return success(flinkJobService.submitJob(reqVO));
+    }
+    
+    @PostMapping("/submit-kafka-stream")
+    @Operation(summary = "提交 Kafka 流处理任务（测试用）")
+    public CommonResult<String> submitKafkaStreamJob() throws Exception {
+        FlinkJobSubmitReqVO reqVO = flinkJobBuilder.buildKafkaStreamJob();
+        return success(flinkJobService.submitJob(reqVO));
+    }
+    
+    @PostMapping("/submit-custom")
+    @Operation(summary = "提交自定义任务")
+    public CommonResult<String> submitCustomJob(@RequestBody FlinkJobSubmitReqVO reqVO) throws Exception {
+        return success(flinkJobService.submitJob(reqVO));
     }
 }

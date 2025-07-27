@@ -126,6 +126,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
+                <configuration>
+                    <mainClass>com.jiangyang.cloud.module.pay.PayServerApplication</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

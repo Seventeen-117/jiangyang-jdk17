@@ -89,7 +89,13 @@ public class FlinkJobServiceImpl implements FlinkJobService {
 
             // 获取上传后的 JAR 文件名
             Map<String, Object> uploadResult = uploadResponse.getBody();
-            String jarId = (String) uploadResult.get("filename");
+            String filename = (String) uploadResult.get("filename");
+            String jarId = filename;
+            if (filename != null && filename.contains("/")) {
+                jarId = filename.substring(filename.lastIndexOf("/") + 1);
+            } else if (filename != null && filename.contains("\\")) {
+                jarId = filename.substring(filename.lastIndexOf("\\") + 1);
+            }
 
             // 3. 运行 JAR 文件
             Map<String, Object> runRequest = new HashMap<>();
@@ -280,6 +286,7 @@ public class FlinkJobServiceImpl implements FlinkJobService {
         configuration.setString(JobManagerOptions.ADDRESS, host);
         configuration.setInteger(RestOptions.PORT, port);
         configuration.setString(RestOptions.BIND_ADDRESS, host);
+        configuration.setString(RestOptions.ADDRESS, host); // 显式设置 rest.address，消除 fallback 提示
 
         return configuration;
     }

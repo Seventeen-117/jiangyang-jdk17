@@ -725,6 +725,21 @@ public class AiModelFactoryImpl implements AiModelFactory {
                 return SpringUtil.getBean(ObservationRegistry.class);
             }
 
+            @Override
+            public ObservationRegistry getObject(Object... args) throws BeansException {
+                return getObject();
+            }
+
+            @Override
+            public ObservationRegistry getIfAvailable() throws BeansException {
+                return getObject();
+            }
+
+            @Override
+            public ObservationRegistry getIfUnique() throws BeansException {
+                return getObject();
+            }
+
         };
     }
 
@@ -733,6 +748,21 @@ public class AiModelFactoryImpl implements AiModelFactory {
             @Override
             public VectorStoreObservationConvention getObject() throws BeansException {
                 return new DefaultVectorStoreObservationConvention();
+            }
+
+            @Override
+            public VectorStoreObservationConvention getObject(Object... args) throws BeansException {
+                return getObject();
+            }
+
+            @Override
+            public VectorStoreObservationConvention getIfAvailable() throws BeansException {
+                return getObject();
+            }
+
+            @Override
+            public VectorStoreObservationConvention getIfUnique() throws BeansException {
+                return getObject();
             }
         };
     }
