@@ -60,23 +60,17 @@ public class FlinkJobController {
         return success(flinkJobService.listRunningJobs());
     }
 
-    @PostMapping("/submit-simple-wordcount")
-    @Operation(summary = "提交简单的 WordCount 任务（测试用）")
-    public CommonResult<String> submitSimpleWordCountJob() throws Exception {
-        FlinkJobSubmitReqVO reqVO = flinkJobBuilder.buildSimpleWordCountJob();
-        return success(flinkJobService.submitJob(reqVO));
-    }
-    
-    @PostMapping("/submit-kafka-stream")
-    @Operation(summary = "提交 Kafka 流处理任务（测试用）")
-    public CommonResult<String> submitKafkaStreamJob() throws Exception {
-        FlinkJobSubmitReqVO reqVO = flinkJobBuilder.buildKafkaStreamJob();
-        return success(flinkJobService.submitJob(reqVO));
-    }
     
     @PostMapping("/submit-custom")
     @Operation(summary = "提交自定义任务")
     public CommonResult<String> submitCustomJob(@RequestBody FlinkJobSubmitReqVO reqVO) throws Exception {
+        return success(flinkJobService.submitJob(reqVO));
+    }
+    
+    @PostMapping("/submit-service-polling")
+    @Operation(summary = "提交服务轮询任务")
+    public CommonResult<String> submitServicePollingJob() throws Exception {
+        FlinkJobSubmitReqVO reqVO = flinkJobBuilder.buildServicePollingJob();
         return success(flinkJobService.submitJob(reqVO));
     }
 }

@@ -11,9 +11,20 @@ spring:
         group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
         refresh-enabled: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
 # 日志文件配置
 logging:
   level:
     org.springframework.context.support.PostProcessorRegistrationDelegate: ERROR
 
 # Flink Job 配置
+flink:
+  jobmanager:
+    url: http://localhost:8081
+  job-timeout: 300000
+  jar-poll-interval: 5000

@@ -598,7 +598,7 @@
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.flink.jiangyang.module.flink.job.SimpleWordCountJob</mainClass>
+									<mainClass>com.flink.jiangyang.module.flink.job.ServicePollingJob</mainClass>
 								</transformer>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
 							</transformers>

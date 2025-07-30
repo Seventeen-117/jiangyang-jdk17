@@ -56,6 +56,18 @@ public class FlinkJobBuilder {
         reqVO.setProgramArgs(programArgs);
         return reqVO;
     }
+    
+    /**
+     * 构建服务轮询任务
+     */
+    public FlinkJobSubmitReqVO buildServicePollingJob() {
+        FlinkJobSubmitReqVO reqVO = new FlinkJobSubmitReqVO();
+        reqVO.setJarPath(findLatestFlinkJar());
+        reqVO.setEntryClass("com.flink.jiangyang.module.flink.job.ServicePollingJob");
+        reqVO.setJobName("Service Polling Job");
+        reqVO.setParallelism(1);
+        return reqVO;
+    }
 
     /**
      * 自动查找 target 目录下最新的 jiangyang-module-flink-*.jar

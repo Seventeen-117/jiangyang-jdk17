@@ -15,6 +15,11 @@ spring:
         group: ${spring.cloud.nacos.discovery.group}
         file-extension: yaml
         refresh-enabled: true
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+      enabled: true
 flink:
   job:
     jar-path: D:/jiangyang-jdk17/jiangYang-module-flink/target/jiangyang-module-flink-2.4.2-SNAPSHOT.jar
